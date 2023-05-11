@@ -18,7 +18,7 @@ const theme = createTheme();
 function Project() {
   console.log("ya33333333");
 
-  const [accessToken, setAccessToken]=useState(await getAccessTokenSilently())
+  const [accessToken, setAccessToken] = useState("");
 
   const {
     user,
@@ -28,64 +28,66 @@ function Project() {
     getAccessTokenSilently,
   } = useAuth0();
 
- React.useEffect(() => {
-   const fetchProfile = async () => {  
-     console.log("Access token:", accessToken);
-   };
+  React.useEffect(() => {
+    const fetchProfile = async () => {
+      // setAccessToken(await )
+      console.log("Access token:", accessToken);
+    };
 
-   fetchProfile();
- }, [  getAccessTokenSilently]);
-  const navigate = useNavigate()
-  const [title, setTitle] = useState('')
-  const [uploaded, setUploaded] = useState('')
-  const [description, setDescription] = useState('')
+    fetchProfile();
+  }, [getAccessTokenSilently]);
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [uploaded, setUploaded] = useState("");
+  const [description, setDescription] = useState("");
   const [delievery_service, setDelieveryService] = useState("no");
   const [data, setData] = useState(null);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('uploaded',uploaded);
+    formData.append("uploaded", uploaded);
 
-    formData.append('title',title);
-    formData.append('description',description);
-    const body = jwt_decode(auth?.user?.access).user_type === 'customer' ? { title, description, delievery_service,uploaded } : null
+    formData.append("title", title);
+    formData.append("description", description);
+    const body =
+      jwt_decode(auth?.user?.access).user_type === "customer"
+        ? { title, description, delievery_service, uploaded }
+        : null;
     console.log({ body });
     try {
-      await axios.post(APPLICATION_URL,
-        formData,
-        {
+      await axios
+        .post(APPLICATION_URL, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            "Authorization": `Bearer ${auth?.user?.access}`
-          }
-        }
-      ).then((response) => {
-        console.log(response)
-        //navigate("/", {replace : true})
-});
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          //navigate("/", {replace : true})
+        });
     } catch (err) {
       if (!err?.response) {
-        console.log('No Server Response');
+        console.log("No Server Response");
       } else if (err.response?.status === 409) {
-        console.log('Username Taken');
+        console.log("Username Taken");
       } else {
-        console.log('Registration Failed')
+        console.log("Registration Failed");
       }
 
       console.log(err);
-
     }
-  }
+  };
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get('http://127.0.0.1:8000/find-project/project-done/',
+      const response = await axios.get(
+        "http://127.0.0.1:8000/find-project/project-done/",
         {
           headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${.accessToken}`
-          }
-        });
+            "Content-Type": "application/json",
+          },
+        }
+      );
       setData(JSON.parse(response.data));
     }
 

@@ -42,10 +42,10 @@ const MainLayout = () => {
     setTypeAuth(localStorage.getItem("typeAuth"));
   }, []);
 
-  const logoutHandler = ()=>{
-    localStorage.setItem("typeAuth", 'na')
-    logout({ logoutParams: { returnTo: window.location.origin } })
-  }
+  const logoutHandler = () => {
+    localStorage.setItem("typeAuth", "na");
+    logout({ logoutParams: { returnTo: window.location.origin } });
+  };
 
   useEffect(() => {
     if (localStorage.getItem("typeAuth") === "signup") {
@@ -63,14 +63,9 @@ const MainLayout = () => {
       {isAuthenticated ? (
         <>
           <Button variant="contained">
-            <Link to="/ProfileTest">Profile</Link>
+            <Link to="/Profile">Profile</Link>
           </Button>
-          <Button
-            onClick={() =>
-              logoutHandler()
-            }
-            variant="contained"
-          >
+          <Button onClick={() => logoutHandler()} variant="contained">
             Logout
           </Button>
         </>

@@ -32,8 +32,8 @@ export default function SignUp() {
 
   // const navigate = useNavigate();
   const [user, setUser] = useState("");
-  const [firstname, setfirstname] = useState(data?.nickname);
-  const [lastname, setlastname] = useState(data?.name);
+  const [name, setname] = useState(data?.nickname);
+  const [nickname, setnickname] = useState(data?.name);
   const [email, setEmail] = useState(data?.email);
   const [emailSender, setEmailSender] = useState(email);
   const [emailOpen, setEmailOpen] = useState(false);
@@ -88,8 +88,8 @@ export default function SignUp() {
               id_user:data?.sub,
                 username: user,
                 email: email,
-                first_name: firstname,
-                last_name: lastname,
+                first_name: name,
+                last_name: nickname,
                 is_active: false,
                 company_name: companyName,
                 adress: address,
@@ -104,8 +104,8 @@ export default function SignUp() {
 
                 username: user,
                 email: email,
-                first_name: firstname,
-                last_name: lastname,
+                first_name: name,
+                last_name: nickname,
                 is_active: false,
                 company_name: companyName,
                 adress: address,
@@ -125,8 +125,8 @@ export default function SignUp() {
         setOpen(true);
         setUser("");
 
-        setfirstname("");
-        setlastname("");
+        setname("");
+        setnickname("");
         setEmployeesNumber("0");
         setAddress("");
         setCompanyType(null);
@@ -171,8 +171,8 @@ export default function SignUp() {
           console.log(JSON.stringify(response?.data));
 
           setUser("");
-          setfirstname("");
-          setlastname("");
+          setname("");
+          setnickname("");
           setEmail("");
         })
         .catch((err) => {
@@ -203,8 +203,8 @@ export default function SignUp() {
         setTimeout(() => setCheckEmailOpen(""), 3000);
         setUser("");
 
-        setfirstname("");
-        setlastname("");
+        setname("");
+        setnickname("");
       })
       .catch((err: any) => {
         setCheckEmailOpen("false");
@@ -360,7 +360,7 @@ export default function SignUp() {
                 />
               </>
             ) : null}
-            <TextField
+            {/* <TextField
               value={user}
               margin="normal"
               required
@@ -371,27 +371,27 @@ export default function SignUp() {
               autoComplete="username"
               autoFocus
               onChange={(e) => setUser(e.target.value)}
-            />
+            /> */}
             <TextField
-              value={firstname}
+              value={name}
               margin="normal"
               required
               fullWidth
-              id="firstname"
-              label="firstname"
-              name="firstname"
-              autoComplete="firstname"
+              id="name"
+              label="name"
+              name="name"
+              autoComplete="name"
               disabled={true}
             />
             <TextField
-              value={lastname}
+              value={nickname}
               margin="normal"
               required
               fullWidth
-              id="lastname"
-              label="lastname"
-              name="lastname"
-              autoComplete="lastname"
+              id="nickname"
+              label="nickname"
+              name="nickname"
+              autoComplete="nickname"
               disabled={true}
             />
             <TextField
